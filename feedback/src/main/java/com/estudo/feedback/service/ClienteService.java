@@ -20,8 +20,10 @@ public class ClienteService {
     private ClienteRepository repository;
 
     public ClienteDTO salvar(ClienteDTO clienteDTO) {
-        ClienteDTO cliente = new ClienteDTO();
-        return cliente;
+//        throw new RuntimeException("Erro ao conectar com o banco de dados");
+        clienteDTO.setId(1L);
+
+        return clienteDTO;
     }
 
     public List<ClienteDTO> buscar(ClienteDTO clienteDTO) {

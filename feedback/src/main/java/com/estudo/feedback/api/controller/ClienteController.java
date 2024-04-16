@@ -19,11 +19,19 @@ public class ClienteController implements IClienteController {
 
     @Override
     public ClienteResponse create(ClienteRequest clienteRequest) {
+
         ClienteDTO clienteDTO = new ClienteDTO();
         clienteDTO.setEmail(clienteRequest.getEmail());
         clienteDTO.setNome(clienteRequest.getNome());
-        service.salvar(clienteDTO);
-        return null;
+
+        ClienteDTO clienteSalvo = service.salvar(clienteDTO);
+
+        ClienteResponse clienteResponse = new ClienteResponse();
+        clienteResponse.setId(clienteSalvo.getId());
+        clienteResponse.setNome(clienteSalvo.getNome());
+        clienteResponse.setEmail(clienteSalvo.getEmail());
+
+        return clienteResponse;
     }
 
 
