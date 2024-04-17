@@ -3,6 +3,7 @@ package com.estudo.feedback.service;
 import com.estudo.feedback.api.request.ClienteRequest;
 import com.estudo.feedback.api.response.ClienteResponse;
 import com.estudo.feedback.domain.dto.ClienteDTO;
+import com.estudo.feedback.domain.entity.Cliente;
 import com.estudo.feedback.repository.ClienteRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,22 @@ public class ClienteService {
     private ClienteRepository repository;
 
     public ClienteDTO salvar(ClienteDTO clienteDTO) {
-//        throw new RuntimeException("Erro ao conectar com o banco de dados");
-        clienteDTO.setId(1L);
+        Cliente cliente = new Cliente();
+        cliente.setEmail(clienteDTO.getEmail());
+        cliente.setNome(clienteDTO.getNome());
 
-        return clienteDTO;
+        Cliente clienteSalvo = repository.save(cliente);
+
+        ClienteDTO clienteDTOSalvo = new ClienteDTO();
+        clienteDTOSalvo.setId(clienteSalvo.getId());
+        clienteDTOSalvo.setNome(clienteSalvo.getNome());
+        clienteDTOSalvo.setEmail(clienteSalvo.getEmail());
+        clienteDTOSalvo.setUpdatedAt(clienteSalvo.getUpdatedAt());
+        clienteDTOSalvo.setUpdatedBy(clienteSalvo.getUpdatedBy());
+        clienteDTOSalvo.setCreatedAt(clienteSalvo.getCreatedAt());
+        clienteDTOSalvo.setCreatedBy(clienteSalvo.getCreatedBy());
+
+        return clienteDTOSalvo;
     }
 
     public List<ClienteDTO> buscar(ClienteDTO clienteDTO) {
